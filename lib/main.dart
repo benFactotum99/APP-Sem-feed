@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sem_feed/data/helpers/user_session_helper.dart';
 import 'package:sem_feed/data/repository/api/news_repository.dart';
 import 'package:sem_feed/data/repository/api/user_repository.dart';
+import 'package:sem_feed/domain/arguments/news_detail_arguments.dart';
 import 'package:sem_feed/domain/helpers/custom_init_app_helper.dart';
 import 'package:sem_feed/domain/helpers/strings_helper.dart';
 import 'package:sem_feed/domain/services/news_service.dart';
@@ -14,6 +15,9 @@ import 'package:sem_feed/presentation/bloc/news/news_bloc.dart';
 import 'package:sem_feed/presentation/view/account/login_view.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sem_feed/presentation/view/home/home_view.dart';
+import 'package:sem_feed/presentation/view/news/news_detail_view.dart';
+
+import 'presentation/bloc/user/user_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,6 +66,18 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        BlocProvider(
+          create: (context) => UserBloc(
+            userService: UserService(
+              UserRepository(
+                baseUrl,
+                UserSessionHelper(
+                  flutterSecureStorage,
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -91,7 +107,11 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (settings) {
           final routes = {
             HomeView.route: (context) => HomeView(),
-            LoginView.route: (context) => LoginView()
+            LoginView.route: (context) => LoginView(),
+            NewsDetailView.route: (context) => NewsDetailView(
+                  newsDetailArguments:
+                      settings.arguments as NewsDetailArguments,
+                ),
           };
           return MaterialPageRoute(builder: routes[settings.name]!);
         },

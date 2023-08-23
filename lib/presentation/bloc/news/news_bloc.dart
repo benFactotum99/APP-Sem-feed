@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sem_feed/data/exceptions/custom_token_exception.dart';
 import 'package:sem_feed/data/repository/api/news_repository.dart';
 import 'package:sem_feed/domain/services/news_service.dart';
 import 'package:sem_feed/presentation/bloc/news/news_bloc_event.dart';
@@ -13,10 +14,12 @@ class NewsBloc extends Bloc<NewsBlocEvent, NewsBlocState> {
           emit(NewsBlocStateLoading());
           var newses = await newsService.getNewses();
           emit(NewsBlocStateLoaded(newses));
-          //TODO: andrebbero differenziate le eccezioni
+        } on CustomTokenException catch (error) {
+          print(error.cause);
+          emit(NewsBlocStateLogout(error.cause));
         } catch (error) {
           print(error);
-          emit(NewsBlocStateError("Errore"));
+          emit(NewsBlocStateError(error.toString()));
         }
       },
     );

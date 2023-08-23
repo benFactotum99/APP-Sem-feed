@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sem_feed/domain/arguments/news_detail_arguments.dart';
 import 'package:sem_feed/presentation/bloc/news/news_bloc.dart';
 import 'package:sem_feed/presentation/bloc/news/news_bloc_event.dart';
 import 'package:sem_feed/presentation/bloc/news/news_bloc_state.dart';
+import 'package:sem_feed/presentation/view/account/login_view.dart';
+import 'package:sem_feed/presentation/view/news/news_detail_view.dart';
 
 class NewsView extends StatefulWidget {
   const NewsView({Key? key}) : super(key: key);
@@ -19,15 +22,26 @@ class _NewsViewState extends State<NewsView> {
   }
 
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          SizedBox(height: 25),
-          searchSection(),
-          SizedBox(height: 20),
-          listNewSection(),
-          SizedBox(height: 20),
-        ],
+    return BlocListener<NewsBloc, NewsBlocState>(
+      listener: (context, state) {
+        if (state is NewsBlocStateLogout) {
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => LoginView(),
+            ),
+          );
+        }
+      },
+      child: Center(
+        child: Column(
+          children: [
+            SizedBox(height: 25),
+            searchSection(),
+            SizedBox(height: 20),
+            listNewSection(),
+            SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }
@@ -67,7 +81,13 @@ class _NewsViewState extends State<NewsView> {
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          NewsDetailView.route,
+                          arguments: NewsDetailArguments(newses[index]),
+                        );
+                      },
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),

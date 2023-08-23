@@ -15,3 +15,8 @@ class NewsBlocStateError extends NewsBlocState {
   final String errorMessage;
   NewsBlocStateError(this.errorMessage);
 }
+
+class NewsBlocStateLogout extends NewsBlocState {
+  final String errorMessage;
+  NewsBlocStateLogout(this.errorMessage);
+}
