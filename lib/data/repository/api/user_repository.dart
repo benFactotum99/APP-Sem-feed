@@ -4,11 +4,13 @@ import 'package:sem_feed/data/helpers/user_session_helper.dart';
 import 'package:sem_feed/data/models/auth_user_request.dart';
 import 'package:sem_feed/data/models/user_session.dart';
 import 'package:http/http.dart' as http;
+import 'package:sem_feed/data/repository/api/master_api_repository.dart';
 
-class UserRepository {
+class UserRepository extends MasterApiRepository {
   final String baseUrl;
   final UserSessionHelper userSessionHelper;
-  UserRepository(this.baseUrl, this.userSessionHelper);
+  UserRepository(this.baseUrl, this.userSessionHelper)
+      : super(baseUrl, userSessionHelper);
 
   Future<UserSession> login(AuthUserRequest authUserRequest) async {
     var headers = {
