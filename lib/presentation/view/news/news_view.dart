@@ -14,14 +14,19 @@ class NewsView extends StatefulWidget {
   State<NewsView> createState() => _NewsViewState();
 }
 
-class _NewsViewState extends State<NewsView> {
+class _NewsViewState extends State<NewsView>
+    with AutomaticKeepAliveClientMixin {
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<NewsBloc>(context).add(NewsBlocEventFetch());
+    BlocProvider.of<NewsBloc>(context).add(NewsBlocEventFetch(isFirst: true));
   }
 
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocListener<NewsBloc, NewsBlocState>(
       listener: (context, state) {
         if (state is NewsBlocStateLogout) {
@@ -45,6 +50,9 @@ class _NewsViewState extends State<NewsView> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   searchSection() {
     return Container(
@@ -70,64 +78,76 @@ class _NewsViewState extends State<NewsView> {
               //height: 400,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: ListView.separated(
-                  padding:
-                      EdgeInsets.only(bottom: kBottomNavigationBarHeight + 40),
-                  shrinkWrap: true,
-                  itemCount: newses.length,
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(
-                    height: 20,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          NewsDetailView.route,
-                          arguments: NewsDetailArguments(newses[index]),
-                        );
-                      },
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Row(
-                          children: [
-                            //SizedBox(width: 20),
-                            //Icon(Icons.newspaper, size: 100),
-                            SizedBox(width: 20),
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: 20),
-                                  Text(
-                                    newses[index].title.trim(),
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    newses[index].pubDate.trim(),
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Text(newses[index].content.trim()),
-                                  SizedBox(height: 20),
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: 20),
-                          ],
-                        ),
-                      ),
-                    );
+                child: RefreshIndicator(
+                  key: _refreshIndicatorKey,
+                  strokeWidth: 3,
+                  triggerMode: RefreshIndicatorTriggerMode.onEdge,
+                  onRefresh: () async {
+                    await Future.delayed(Duration(milliseconds: 1500));
+                    setState(() {
+                      BlocProvider.of<NewsBloc>(context)
+                          .add(NewsBlocEventFetch(isFirst: false));
+                    });
                   },
+                  child: ListView.separated(
+                    padding: EdgeInsets.only(
+                        bottom: kBottomNavigationBarHeight + 40),
+                    shrinkWrap: true,
+                    itemCount: newses.length,
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const SizedBox(
+                      height: 20,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            NewsDetailView.route,
+                            arguments: NewsDetailArguments(newses[index]),
+                          );
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Row(
+                            children: [
+                              //SizedBox(width: 20),
+                              //Icon(Icons.newspaper, size: 100),
+                              SizedBox(width: 20),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 20),
+                                    Text(
+                                      newses[index].title.trim(),
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      newses[index].pubDate.trim(),
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text(newses[index].content.trim()),
+                                    SizedBox(height: 20),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: 20),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

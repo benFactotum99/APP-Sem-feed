@@ -5,6 +5,7 @@ import 'package:sem_feed/presentation/view/account/login_view.dart';
 import 'package:sem_feed/presentation/view/components/custom_button.dart';
 import 'package:sem_feed/presentation/view/components/side_bar_logged.dart';
 import 'package:sem_feed/presentation/view/news/news_view.dart';
+import 'package:sem_feed/presentation/view/topic/topic_view.dart';
 
 class Page2 extends StatelessWidget {
   const Page2({Key? key}) : super(key: key);
@@ -66,7 +67,7 @@ class _HomeViewState extends State<HomeView> {
   final List<Widget> bottomBarPages = [
     const NewsView(),
     const Page2(),
-    const Page3(),
+    const TopicView(),
     const Page4(),
   ];
 

@@ -7,8 +7,8 @@ class TopicBlocStateInit extends TopicBlocState {}
 class TopicBlocStateLoading extends TopicBlocState {}
 
 class TopicBlocStateLoaded extends TopicBlocState {
-  final List<Topic> topices;
-  TopicBlocStateLoaded(this.topices);
+  final List<Topic> topics;
+  TopicBlocStateLoaded(this.topics);
 }
 
 class TopicBlocStateError extends TopicBlocState {

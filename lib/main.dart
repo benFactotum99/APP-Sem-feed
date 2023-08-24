@@ -4,14 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sem_feed/data/helpers/user_session_helper.dart';
 import 'package:sem_feed/data/repository/api/news_repository.dart';
+import 'package:sem_feed/data/repository/api/topic_repository.dart';
 import 'package:sem_feed/data/repository/api/user_repository.dart';
 import 'package:sem_feed/domain/arguments/news_detail_arguments.dart';
 import 'package:sem_feed/domain/helpers/custom_init_app_helper.dart';
 import 'package:sem_feed/domain/helpers/strings_helper.dart';
 import 'package:sem_feed/domain/services/news_service.dart';
+import 'package:sem_feed/domain/services/topic_service.dart';
 import 'package:sem_feed/domain/services/user_service.dart';
 import 'package:sem_feed/presentation/bloc/authentication/authentication_bloc.dart';
 import 'package:sem_feed/presentation/bloc/news/news_bloc.dart';
+import 'package:sem_feed/presentation/bloc/topic/topic_bloc.dart';
 import 'package:sem_feed/presentation/view/account/login_view.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sem_feed/presentation/view/home/home_view.dart';
@@ -70,6 +73,18 @@ class MyApp extends StatelessWidget {
           create: (context) => UserBloc(
             userService: UserService(
               UserRepository(
+                baseUrl,
+                UserSessionHelper(
+                  flutterSecureStorage,
+                ),
+              ),
+            ),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => TopicBloc(
+            topicService: TopicService(
+              TopicRepository(
                 baseUrl,
                 UserSessionHelper(
                   flutterSecureStorage,

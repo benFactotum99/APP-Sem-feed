@@ -11,7 +11,7 @@ class NewsBloc extends Bloc<NewsBlocEvent, NewsBlocState> {
     on<NewsBlocEventFetch>(
       (event, emit) async {
         try {
-          emit(NewsBlocStateLoading());
+          if (event.isFirst == true) emit(NewsBlocStateLoading());
           var newses = await newsService.getNewses();
           emit(NewsBlocStateLoaded(newses));
         } on CustomTokenException catch (error) {
