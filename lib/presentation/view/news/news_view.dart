@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:sem_feed/domain/arguments/news_detail_arguments.dart';
 import 'package:sem_feed/presentation/bloc/news/news_bloc.dart';
 import 'package:sem_feed/presentation/bloc/news/news_bloc_event.dart';
@@ -40,6 +41,35 @@ class _NewsViewState extends State<NewsView>
       child: Center(
         child: Column(
           children: [
+            AppBar(
+              backgroundColor: Color.fromARGB(246, 250, 250, 250),
+              //backgroundColor: Colors.white,
+              elevation: 1,
+              title: Text(
+                "News",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              centerTitle: false,
+              actions: [
+                SizedBox(
+                  width: 60,
+                  height: 45,
+                  child: IconButton(
+                    iconSize: 28,
+                    icon: Icon(
+                      HeroIcons.document_plus,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+              ],
+            ),
             SizedBox(height: 25),
             searchSection(),
             SizedBox(height: 20),

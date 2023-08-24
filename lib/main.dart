@@ -19,6 +19,7 @@ import 'package:sem_feed/presentation/view/account/login_view.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sem_feed/presentation/view/home/home_view.dart';
 import 'package:sem_feed/presentation/view/news/news_detail_view.dart';
+import 'package:sem_feed/presentation/view/topic/topic_edit_view.dart';
 
 import 'presentation/bloc/user/user_bloc.dart';
 
@@ -127,6 +128,7 @@ class MyApp extends StatelessWidget {
                   newsDetailArguments:
                       settings.arguments as NewsDetailArguments,
                 ),
+            TopicEditView.route: (context) => TopicEditView(),
           };
           return MaterialPageRoute(builder: routes[settings.name]!);
         },

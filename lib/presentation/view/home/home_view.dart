@@ -49,13 +49,11 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  /// Controller to handle PageView and also handles initial page
   final _pageController = PageController(initialPage: 0);
-
-  /// Controller to handle bottom nav bar and also handles initial page
   final _controller = NotchBottomBarController(index: 0);
 
-  int maxCount = 4;
+  int maxCount = 3;
+  int index = 0;
 
   @override
   void dispose() {
@@ -66,26 +64,12 @@ class _HomeViewState extends State<HomeView> {
   /// widget list
   final List<Widget> bottomBarPages = [
     const NewsView(),
-    const Page2(),
     const TopicView(),
     const Page4(),
   ];
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          "Semfeed",
-          style: TextStyle(
-            color: Colors.blue,
-            fontSize: 35,
-            //fontWeight: FontWeight.bold,
-            fontFamily: 'Cookie',
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ),
       body: PageView(
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
@@ -95,38 +79,24 @@ class _HomeViewState extends State<HomeView> {
       extendBody: true,
       bottomNavigationBar: (bottomBarPages.length <= maxCount)
           ? AnimatedNotchBottomBar(
-              /// Provide NotchBottomBarController
               notchBottomBarController: _controller,
               color: Colors.white,
               showLabel: false,
               notchColor: Colors.white,
-
-              /// restart app if you change removeMargins
               removeMargins: false,
               bottomBarWidth: 500,
               durationInMilliSeconds: 300,
               bottomBarItems: [
                 const BottomBarItem(
                   inActiveItem: Icon(
-                    HeroIcons.home,
+                    HeroIcons.newspaper,
                     color: Colors.blueGrey,
                   ),
                   activeItem: Icon(
-                    HeroIcons.home,
+                    HeroIcons.newspaper,
                     color: Colors.blueAccent,
                   ),
-                  itemLabel: 'Page 1',
-                ),
-                const BottomBarItem(
-                  inActiveItem: Icon(
-                    HeroIcons.document_plus,
-                    color: Colors.blueGrey,
-                  ),
-                  activeItem: Icon(
-                    HeroIcons.document_plus,
-                    color: Colors.blueAccent,
-                  ),
-                  itemLabel: 'Page 2',
+                  itemLabel: 'News',
                 ),
 
                 ///svg example
@@ -139,7 +109,7 @@ class _HomeViewState extends State<HomeView> {
                     Icons.category,
                     color: Colors.blueAccent,
                   ),
-                  itemLabel: 'Page 3',
+                  itemLabel: 'Topics',
                 ),
                 const BottomBarItem(
                   inActiveItem: Icon(
@@ -154,6 +124,9 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ],
               onTap: (index) {
+                setState(() {
+                  this.index = index;
+                });
                 _pageController.jumpToPage(index);
               },
             )

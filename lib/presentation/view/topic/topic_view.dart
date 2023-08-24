@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc_event.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc_state.dart';
+import 'package:sem_feed/presentation/view/account/login_view.dart';
+import 'package:sem_feed/presentation/view/topic/topic_edit_view.dart';
 
 class TopicView extends StatefulWidget {
   const TopicView({super.key});
@@ -22,29 +25,57 @@ class _TopicViewState extends State<TopicView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Center(
-      child: Column(
-        children: [
-          SizedBox(height: 25),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(41, 0, 20, 0),
-            child: Row(
-              children: [
-                Text(
-                  "Topics",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
+    return BlocListener<TopicBloc, TopicBlocState>(
+      listener: (context, state) {
+        if (state is TopicBlocStateLogout) {
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => LoginView(),
+            ),
+          );
+        }
+      },
+      child: Center(
+        child: Column(
+          children: [
+            AppBar(
+              backgroundColor: Color.fromARGB(246, 250, 250, 250),
+              elevation: 1,
+              title: Text(
+                "Topics",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              centerTitle: false,
+              actions: [
+                SizedBox(
+                  width: 60,
+                  height: 45,
+                  child: IconButton(
+                    iconSize: 28,
+                    icon: Icon(
+                      Icons.add,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        TopicEditView.route,
+                        //arguments: NewsDetailArguments(newses[index]),
+                      );
+                    },
                   ),
                 ),
               ],
             ),
-          ),
-          SizedBox(height: 5),
-          listTopicSection(),
-        ],
+            SizedBox(height: 25),
+            listTopicSection(),
+          ],
+        ),
       ),
     );
   }

@@ -44,20 +44,21 @@ class _NewsDetailViewState extends State<NewsDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.blue),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(246, 250, 250, 250),
+        centerTitle: false,
         title: Text(
-          "Semfeed",
+          "Details",
+          textAlign: TextAlign.left,
           style: TextStyle(
             color: Colors.blue,
-            fontSize: 35,
-            //fontWeight: FontWeight.bold,
-            fontFamily: 'Cookie',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
-          textAlign: TextAlign.center,
         ),
       ),
       body: Center(
@@ -66,27 +67,8 @@ class _NewsDetailViewState extends State<NewsDetailView> {
             SizedBox(height: 25),
             detailNewsSection(),
             SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(41, 0, 20, 0),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.category,
-                    color: Colors.blue,
-                  ),
-                  Text(
-                    "Topics",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 5),
+            topicTitleSection(),
+            SizedBox(height: 10),
             topicsSection(),
           ],
         ),
@@ -190,6 +172,27 @@ class _NewsDetailViewState extends State<NewsDetailView> {
               },
             ),
           ),
+        ),
+      );
+
+  topicTitleSection() => Padding(
+        padding: const EdgeInsets.fromLTRB(41, 0, 20, 0),
+        child: Row(
+          children: [
+            Icon(
+              Icons.category,
+              color: Colors.blue,
+            ),
+            Text(
+              "Topics",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Colors.blue,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       );
 }

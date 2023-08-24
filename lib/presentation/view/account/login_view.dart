@@ -343,6 +343,7 @@ class _LoginViewState extends State<LoginView> {
     return Colors.blue;
   }
 
+//TODO: va messo il loading in base allo stato
   Widget buttonLoginSection() => CustomButton(
         text: 'Login',
         colorButton: Colors.blue,
