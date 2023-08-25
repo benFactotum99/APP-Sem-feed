@@ -16,23 +16,14 @@ class NewsRepository extends MasterApiRepository {
     var currentUser = await userSessionHelper.currentUser;
     if (currentUser == null) throw Exception("Utente non trovato");
 
-    var headers = {'Authorization': 'Bearer ${currentUser.accessToken}'};
-    var request =
-        http.Request('GET', Uri.parse('$baseUrl/News/${currentUser.userId}'));
-    request.headers.addAll(headers);
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      var resp = await response.stream.bytesToString();
-      var obj = jsonDecode(resp) as List;
-      List<News> objList =
-          obj.map((tagJson) => News.fromJson(tagJson)).toList();
-      return objList;
-    } else if (response.statusCode == 401) {
-      await refreshSession();
-      return await getNewses();
-    } else {
-      throw Exception("Errore nel recupero delle news");
-    }
+    var resp = await genericApiRequest(
+      headers: {'Authorization': 'Bearer ${currentUser.accessToken}'},
+      type: 'GET',
+      url: '$baseUrl/News/${currentUser.userId}',
+      objReq: null,
+    );
+    var obj = jsonDecode(resp) as List;
+    List<News> objList = obj.map((tagJson) => News.fromJson(tagJson)).toList();
+    return objList;
   }
 }
