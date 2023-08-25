@@ -27,12 +27,12 @@ class CustomTextForm extends StatelessWidget {
       controller: textController,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: onValidator,
-      cursorColor: Colors.red,
+      cursorColor: Colors.blue,
       decoration: InputDecoration(
         labelText: myLabelText,
         labelStyle: TextStyle(fontSize: 20, color: Colors.grey),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 2, color: Colors.red),
+          borderSide: BorderSide(width: 2, color: Colors.blue),
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
         //prefixIcon: Icon(Icons.account_circle, size: 30),

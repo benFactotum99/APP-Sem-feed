@@ -6,39 +6,7 @@ import 'package:sem_feed/presentation/view/components/custom_button.dart';
 import 'package:sem_feed/presentation/view/components/side_bar_logged.dart';
 import 'package:sem_feed/presentation/view/news/news_view.dart';
 import 'package:sem_feed/presentation/view/topic/topic_view.dart';
-
-class Page2 extends StatelessWidget {
-  const Page2({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        //color: Color.fromARGB(246, 243, 243, 243),
-        child: const Center(child: Text('Page 2')));
-  }
-}
-
-class Page3 extends StatelessWidget {
-  const Page3({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        //color: Color.fromARGB(246, 243, 243, 243),
-        child: const Center(child: Text('Page 3')));
-  }
-}
-
-class Page4 extends StatelessWidget {
-  const Page4({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        //color: Color.fromARGB(246, 243, 243, 243),
-        child: const Center(child: Text('Page 4')));
-  }
-}
+import 'package:sem_feed/presentation/view/user/user_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -65,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
   final List<Widget> bottomBarPages = [
     const NewsView(),
     const TopicView(),
-    const Page4(),
+    const UserView(),
   ];
 
   Widget build(BuildContext context) {
@@ -120,7 +88,7 @@ class _HomeViewState extends State<HomeView> {
                     HeroIcons.user,
                     color: Colors.blueAccent,
                   ),
-                  itemLabel: 'Page 4',
+                  itemLabel: 'User',
                 ),
               ],
               onTap: (index) {

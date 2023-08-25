@@ -22,5 +22,55 @@ class TopicBloc extends Bloc<TopicBlocEvent, TopicBlocState> {
         }
       },
     );
+
+    on<TopicBlocEventCreate>(
+      (event, emit) async {
+        try {
+          emit(TopicBlocStateEditing());
+          await topicService.create(event.topicReq);
+          var topices = await topicService.getTopics();
+          emit(TopicBlocStateLoaded(topices));
+        } on CustomTokenException catch (error) {
+          print(error.cause);
+          emit(TopicBlocStateLogout(error.cause));
+        } catch (error) {
+          print(error);
+          emit(TopicBlocStateError(error.toString()));
+        }
+      },
+    );
+
+    on<TopicBlocEventUpdate>(
+      (event, emit) async {
+        try {
+          emit(TopicBlocStateEditing());
+          await topicService.update(event.topic);
+          var topices = await topicService.getTopics();
+          emit(TopicBlocStateLoaded(topices));
+        } on CustomTokenException catch (error) {
+          print(error.cause);
+          emit(TopicBlocStateLogout(error.cause));
+        } catch (error) {
+          print(error);
+          emit(TopicBlocStateError(error.toString()));
+        }
+      },
+    );
+
+    on<TopicBlocEventDelete>(
+      (event, emit) async {
+        try {
+          await topicService.delete(event.topicId);
+          var topices = await topicService.getTopics();
+          emit(TopicBlocStateLoaded(topices));
+        } on CustomTokenException catch (error) {
+          print(error.cause);
+          emit(TopicBlocStateLogout(error.cause));
+        } catch (error) {
+          print(error);
+          emit(TopicBlocStateError(error.toString()));
+        }
+      },
+    );
   }
 }

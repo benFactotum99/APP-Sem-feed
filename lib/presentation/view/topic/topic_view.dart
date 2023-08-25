@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:sem_feed/domain/arguments/topic_edit_arguments.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc_event.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc_state.dart';
@@ -65,7 +66,7 @@ class _TopicViewState extends State<TopicView>
                       Navigator.pushNamed(
                         context,
                         TopicEditView.route,
-                        //arguments: NewsDetailArguments(newses[index]),
+                        arguments: TopicEditArguments(null),
                       );
                     },
                   ),
@@ -102,10 +103,17 @@ class _TopicViewState extends State<TopicView>
                     return Dismissible(
                       key: Key(topics[index].id.toString()),
                       onDismissed: (direction) async {
-                        //await viewModel.removeItemCart(index);
+                        BlocProvider.of<TopicBloc>(context)
+                            .add(TopicBlocEventDelete(topics[index].id));
                       },
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            TopicEditView.route,
+                            arguments: TopicEditArguments(topics[index]),
+                          );
+                        },
                         child: Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),

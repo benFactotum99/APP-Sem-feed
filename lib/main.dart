@@ -7,6 +7,7 @@ import 'package:sem_feed/data/repository/api/news_repository.dart';
 import 'package:sem_feed/data/repository/api/topic_repository.dart';
 import 'package:sem_feed/data/repository/api/user_repository.dart';
 import 'package:sem_feed/domain/arguments/news_detail_arguments.dart';
+import 'package:sem_feed/domain/arguments/topic_edit_arguments.dart';
 import 'package:sem_feed/domain/helpers/custom_init_app_helper.dart';
 import 'package:sem_feed/domain/helpers/strings_helper.dart';
 import 'package:sem_feed/domain/services/news_service.dart';
@@ -128,7 +129,9 @@ class MyApp extends StatelessWidget {
                   newsDetailArguments:
                       settings.arguments as NewsDetailArguments,
                 ),
-            TopicEditView.route: (context) => TopicEditView(),
+            TopicEditView.route: (context) => TopicEditView(
+                  topicEditArguments: settings.arguments as TopicEditArguments,
+                ),
           };
           return MaterialPageRoute(builder: routes[settings.name]!);
         },

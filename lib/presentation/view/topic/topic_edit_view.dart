@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sem_feed/data/models/topic.dart';
+import 'package:sem_feed/data/models/topic_req.dart';
 import 'package:sem_feed/data/models/user_session.dart';
+import 'package:sem_feed/domain/arguments/topic_edit_arguments.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc.dart';
+import 'package:sem_feed/presentation/bloc/topic/topic_bloc_event.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc_state.dart';
 import 'package:sem_feed/presentation/bloc/user/user_bloc.dart';
 import 'package:sem_feed/presentation/view/components/custom_button.dart';
@@ -9,7 +13,8 @@ import 'package:sem_feed/presentation/view/components/custom_text_form.dart';
 
 class TopicEditView extends StatefulWidget {
   static const String route = '/topic_edit_view';
-  const TopicEditView({super.key});
+  final TopicEditArguments topicEditArguments;
+  const TopicEditView({required this.topicEditArguments});
 
   @override
   State<TopicEditView> createState() => _TopicEditViewState();
@@ -31,6 +36,11 @@ class _TopicEditViewState extends State<TopicEditView> {
   void initState() {
     super.initState();
     initAsync();
+    if (widget.topicEditArguments.topic != null) {
+      nameTextController.text = widget.topicEditArguments.topic!.name;
+      descriptionTextController.text =
+          widget.topicEditArguments.topic!.description;
+    }
   }
 
   @override
@@ -94,6 +104,10 @@ class _TopicEditViewState extends State<TopicEditView> {
           if (value == null || value.isEmpty) {
             return 'La descrizione è obbligatoria';
           }
+          var val = value.split(" ");
+          if (val.length < 3 || val.contains("")) {
+            return 'Inserire almeno tre parole valide';
+          }
           return null;
         },
         onChanged: (String? value) {},
@@ -111,14 +125,32 @@ class _TopicEditViewState extends State<TopicEditView> {
             isLoading: false, //state is EventBlocStateCreating,
             onPressed: () {
               if (formKey.currentState!.validate()) {
-                /*var event = Event(
-                  name: nameTextController.text,
-                  description: descriptionTextController.text,
-                );
+                if (widget.topicEditArguments.topic != null) {
+                  BlocProvider.of<TopicBloc>(context).add(
+                    TopicBlocEventUpdate(
+                      Topic(
+                        id: widget.topicEditArguments.topic!.id,
+                        user: userSession!.userId,
+                        name: nameTextController.text,
+                        description: descriptionTextController.text,
+                        active: true,
+                      ),
+                    ),
+                  );
+                } else {
+                  BlocProvider.of<TopicBloc>(context).add(
+                    TopicBlocEventCreate(
+                      TopicReq(
+                        user: userSession!.userId,
+                        name: nameTextController.text,
+                        description: descriptionTextController.text,
+                        active: true,
+                      ),
+                    ),
+                  );
+                }
 
-                BlocProvider.of<EventBloc>(context).add(
-                  EventBlocEventCreate(_image!, event),
-                );*/
+                Navigator.of(context).pop();
               }
             },
           );
