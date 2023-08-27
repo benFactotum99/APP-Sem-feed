@@ -12,6 +12,8 @@ class AuthenticationBlocStateUnauthenticated extends AuthenticationBlocState {}
 
 class AuthenticationBlocStateLoadingAuth extends AuthenticationBlocState {}
 
+class AuthenticationBlocStateLogout extends AuthenticationBlocState {}
+
 class AuthenticationBlocStateSuccessAuth extends AuthenticationBlocState {
   final UserSession userSession;
   AuthenticationBlocStateSuccessAuth(this.userSession);

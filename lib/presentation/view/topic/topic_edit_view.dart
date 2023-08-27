@@ -120,9 +120,9 @@ class _TopicEditViewState extends State<TopicEditView> {
             text: 'Salva',
             colorButton: Colors.blue,
             colorText: Colors.white,
-            heightButton: 45,
+            heightButton: 50,
             widthButton: 500,
-            isLoading: false, //state is EventBlocStateCreating,
+            isLoading: state is TopicBlocStateEditing,
             onPressed: () {
               if (formKey.currentState!.validate()) {
                 if (widget.topicEditArguments.topic != null) {

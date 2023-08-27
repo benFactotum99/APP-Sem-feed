@@ -14,12 +14,10 @@ class AuthenticationBloc
 
   AuthenticationBloc({required this.userService})
       : super(AuthenticationBlocStateInitialized()) {
-    on<AuthenticationBlocEventSaveUserData>((event, emit) async {
+    on<AuthenticationBlocEventLogout>((event, emit) async {
       try {
-        final storage = new FlutterSecureStorage();
-        var JsonEncoded = event.userSession.toJson;
-        var json = jsonEncode(JsonEncoded);
-        await storage.write(key: CURRENT_USER, value: json);
+        await userService.signOut();
+        emit(AuthenticationBlocStateLogout());
       } catch (error) {
         print(error);
         emit(AuthenticationBlocStateUnauthenticated());

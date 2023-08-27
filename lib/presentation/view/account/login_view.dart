@@ -343,23 +343,27 @@ class _LoginViewState extends State<LoginView> {
     return Colors.blue;
   }
 
-//TODO: va messo il loading in base allo stato
-  Widget buttonLoginSection() => CustomButton(
-        text: 'Login',
-        colorButton: Colors.blue,
-        colorText: Colors.white,
-        heightButton: 50,
-        widthButton: 310,
-        isLoading: false,
-        onPressed: () {
-          if (formKey.currentState!.validate()) {
-            BlocProvider.of<AuthenticationBloc>(context).add(
-              AuthenticationBlocEventLogin(
-                emailTextController.text,
-                passwordTextController.text,
-              ),
-            );
-          }
+  Widget buttonLoginSection() =>
+      BlocBuilder<AuthenticationBloc, AuthenticationBlocState>(
+        builder: (context, state) {
+          return CustomButton(
+            text: 'Login',
+            colorButton: Colors.blue,
+            colorText: Colors.white,
+            heightButton: 50,
+            widthButton: 310,
+            isLoading: state is AuthenticationBlocStateLoadingAuth,
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                BlocProvider.of<AuthenticationBloc>(context).add(
+                  AuthenticationBlocEventLogin(
+                    emailTextController.text,
+                    passwordTextController.text,
+                  ),
+                );
+              }
+            },
+          );
         },
       );
 

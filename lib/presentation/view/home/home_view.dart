@@ -1,6 +1,10 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:sem_feed/domain/helpers/bottom_bar_menu_helper.dart';
+import 'package:sem_feed/presentation/bloc/authentication/authentication_bloc.dart';
+import 'package:sem_feed/presentation/bloc/authentication/authentication_bloc_event.dart';
 import 'package:sem_feed/presentation/view/account/login_view.dart';
 import 'package:sem_feed/presentation/view/components/custom_button.dart';
 import 'package:sem_feed/presentation/view/components/side_bar_logged.dart';
@@ -19,9 +23,8 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final _pageController = PageController(initialPage: 0);
   final _controller = NotchBottomBarController(index: 0);
-
+  BottomBarMenuHelper bottomBarMenuHelper = BottomBarMenuHelper.NEWS;
   int maxCount = 3;
-  int index = 0;
 
   @override
   void dispose() {
@@ -29,7 +32,6 @@ class _HomeViewState extends State<HomeView> {
     super.dispose();
   }
 
-  /// widget list
   final List<Widget> bottomBarPages = [
     const NewsView(),
     const TopicView(),
@@ -38,6 +40,9 @@ class _HomeViewState extends State<HomeView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: bottomBarMenuHelper == BottomBarMenuHelper.PROFILE
+          ? appBarUserProfile()
+          : null,
       body: PageView(
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
@@ -93,7 +98,17 @@ class _HomeViewState extends State<HomeView> {
               ],
               onTap: (index) {
                 setState(() {
-                  this.index = index;
+                  switch (index) {
+                    case 0:
+                      bottomBarMenuHelper = BottomBarMenuHelper.NEWS;
+                      break;
+                    case 1:
+                      bottomBarMenuHelper = BottomBarMenuHelper.TOPICS;
+                      break;
+                    case 2:
+                      bottomBarMenuHelper = BottomBarMenuHelper.PROFILE;
+                      break;
+                  }
                 });
                 _pageController.jumpToPage(index);
               },
@@ -101,4 +116,55 @@ class _HomeViewState extends State<HomeView> {
           : null,
     );
   }
+
+  List<String> items = [
+    'Logout',
+  ];
+
+  appBarUserProfile() => AppBar(
+        backgroundColor: Color.fromARGB(246, 250, 250, 250),
+        elevation: 1,
+        title: Text(
+          "Profile",
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            color: Colors.blue,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: false,
+        actions: [
+          PopupMenuButton<String>(
+            icon: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Icon(
+                Icons.menu,
+                color: Colors.blue,
+              ),
+            ),
+            itemBuilder: (BuildContext context) {
+              return items.map((String item) {
+                return PopupMenuItem<String>(
+                  value: item,
+                  child: Text(item),
+                );
+              }).toList();
+            },
+            onSelected: (String item) {
+              if (item == "Logout") {
+                BlocProvider.of<AuthenticationBloc>(context).add(
+                  AuthenticationBlocEventLogout(),
+                );
+
+                Navigator.of(context, rootNavigator: true).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => LoginView(),
+                  ),
+                );
+              }
+            },
+          ),
+        ],
+      );
 }

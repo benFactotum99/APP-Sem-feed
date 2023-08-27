@@ -24,6 +24,7 @@ class UserService {
   }
 
   Future<void> signOut() async {
+    await userRepository.logout();
     await userRepository.deleteUserSession();
   }
 
