@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sem_feed/data/models/auth_user_request.dart';
+import 'package:sem_feed/data/models/user.dart';
 import 'package:sem_feed/data/models/user_session.dart';
 import 'package:sem_feed/data/repository/api/user_repository.dart';
 
@@ -30,5 +31,9 @@ class UserService {
 
   Future<UserSession?> get currentUser async {
     return userRepository.currentUser;
+  }
+
+  Future<User> getUser() async {
+    return await userRepository.getUser();
   }
 }
