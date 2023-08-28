@@ -121,11 +121,9 @@ class _NewsViewState extends State<NewsView>
                   triggerMode: RefreshIndicatorTriggerMode.onEdge,
                   onRefresh: () async {
                     await Future.delayed(Duration(milliseconds: 1500));
-                    setState(() {
-                      searchTextController.text = "";
-                      BlocProvider.of<NewsBloc>(context)
-                          .add(NewsBlocEventFetch(isFirst: false));
-                    });
+                    searchTextController.text = "";
+                    BlocProvider.of<NewsBloc>(context)
+                        .add(NewsBlocEventFetch(isFirst: false));
                   },
                   child: ListView.separated(
                     padding: EdgeInsets.only(
