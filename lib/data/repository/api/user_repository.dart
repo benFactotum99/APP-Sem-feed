@@ -47,24 +47,26 @@ class UserRepository extends MasterApiRepository {
   Future<void> logout() async {
     var user = await userSessionHelper.currentUser;
     if (user == null) throw Exception("Utente non trovato");
-    await genericApiRequest(
+    var response = await genericApiRequest(
       headers: {'Content-Type': 'application/json'},
       type: 'POST',
       url: '$baseUrl/Auth/Logout',
       objReq: TokenPayload(token: user.refreshToken),
     );
+    await response.stream.bytesToString();
   }
 
   Future<User> getUser() async {
     var user = await userSessionHelper.currentUser;
     if (user == null) throw Exception("Utente non trovato");
 
-    var resp = await genericApiRequest(
+    var response = await genericApiRequest(
       headers: {'Authorization': 'Bearer ${user.accessToken}'},
       type: 'GET',
       url: '$baseUrl/Users/${user.userId}',
       objReq: null,
     );
+    var resp = await response.stream.bytesToString();
     return User.fromJson(jsonDecode(resp));
   }
 }

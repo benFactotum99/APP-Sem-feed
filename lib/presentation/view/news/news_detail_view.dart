@@ -112,7 +112,7 @@ class _NewsDetailViewState extends State<NewsDetailView> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    Text(widget.newsDetailArguments.news.content.trim()),
+                    Text(widget.newsDetailArguments.news.contentSnippet.trim()),
                     SizedBox(height: 20),
                   ],
                 ),

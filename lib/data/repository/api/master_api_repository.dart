@@ -24,7 +24,7 @@ abstract class MasterApiRepository {
     };
   }
 
-  Future<String> genericApiRequest({
+  Future<http.StreamedResponse> genericApiRequest({
     required Map<String, String> headers,
     required String type,
     required String url,
@@ -36,9 +36,8 @@ abstract class MasterApiRepository {
 
     http.StreamedResponse response = await request.send();
 
-    if (response.statusCode == 200) {
-      var resp = await response.stream.bytesToString();
-      return resp;
+    if (response.statusCode >= 200 || response.statusCode < 300) {
+      return response;
     } else if (response.statusCode == 401) {
       await refreshSession();
       return await genericApiRequest(

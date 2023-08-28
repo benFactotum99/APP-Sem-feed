@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sem_feed/data/helpers/user_session_helper.dart';
 import 'package:sem_feed/data/repository/api/news_repository.dart';
+import 'package:sem_feed/data/repository/api/resource_repository.dart';
 import 'package:sem_feed/data/repository/api/topic_repository.dart';
 import 'package:sem_feed/data/repository/api/user_repository.dart';
 import 'package:sem_feed/domain/arguments/news_detail_arguments.dart';
@@ -11,14 +12,17 @@ import 'package:sem_feed/domain/arguments/topic_edit_arguments.dart';
 import 'package:sem_feed/domain/helpers/custom_init_app_helper.dart';
 import 'package:sem_feed/domain/helpers/strings_helper.dart';
 import 'package:sem_feed/domain/services/news_service.dart';
+import 'package:sem_feed/domain/services/resource_service.dart';
 import 'package:sem_feed/domain/services/topic_service.dart';
 import 'package:sem_feed/domain/services/user_service.dart';
 import 'package:sem_feed/presentation/bloc/authentication/authentication_bloc.dart';
 import 'package:sem_feed/presentation/bloc/news/news_bloc.dart';
+import 'package:sem_feed/presentation/bloc/resource/resource_bloc.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc.dart';
 import 'package:sem_feed/presentation/view/account/login_view.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sem_feed/presentation/view/home/home_view.dart';
+import 'package:sem_feed/presentation/view/news/news_add_resource_view.dart';
 import 'package:sem_feed/presentation/view/news/news_detail_view.dart';
 import 'package:sem_feed/presentation/view/topic/topic_edit_view.dart';
 
@@ -47,6 +51,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => ResourceBloc(
+            resourceService: ResourceService(
+              UserRepository(
+                baseUrl,
+                UserSessionHelper(
+                  flutterSecureStorage,
+                ),
+              ),
+              ResourceRepository(
+                baseUrl,
+                UserSessionHelper(
+                  flutterSecureStorage,
+                ),
+              ),
+            ),
+          ),
+        ),
         BlocProvider(
           create: (context) => AuthenticationBloc(
             userService: UserService(
@@ -132,6 +154,7 @@ class MyApp extends StatelessWidget {
             TopicEditView.route: (context) => TopicEditView(
                   topicEditArguments: settings.arguments as TopicEditArguments,
                 ),
+            NewsAddResourceView.route: (context) => NewsAddResourceView(),
           };
           return MaterialPageRoute(builder: routes[settings.name]!);
         },

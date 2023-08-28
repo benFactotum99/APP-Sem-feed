@@ -6,6 +6,7 @@ import 'package:sem_feed/presentation/bloc/news/news_bloc.dart';
 import 'package:sem_feed/presentation/bloc/news/news_bloc_event.dart';
 import 'package:sem_feed/presentation/bloc/news/news_bloc_state.dart';
 import 'package:sem_feed/presentation/view/account/login_view.dart';
+import 'package:sem_feed/presentation/view/news/news_add_resource_view.dart';
 import 'package:sem_feed/presentation/view/news/news_detail_view.dart';
 
 class NewsView extends StatefulWidget {
@@ -19,6 +20,7 @@ class _NewsViewState extends State<NewsView>
     with AutomaticKeepAliveClientMixin {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
+  TextEditingController searchTextController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -65,7 +67,12 @@ class _NewsViewState extends State<NewsView>
                       HeroIcons.document_plus,
                       color: Colors.blue,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        NewsAddResourceView.route,
+                      );
+                    },
                   ),
                 ),
               ],
@@ -115,6 +122,7 @@ class _NewsViewState extends State<NewsView>
                   onRefresh: () async {
                     await Future.delayed(Duration(milliseconds: 1500));
                     setState(() {
+                      searchTextController.text = "";
                       BlocProvider.of<NewsBloc>(context)
                           .add(NewsBlocEventFetch(isFirst: false));
                     });
@@ -166,7 +174,7 @@ class _NewsViewState extends State<NewsView>
                                       ),
                                     ),
                                     SizedBox(height: 10),
-                                    Text(newses[index].content.trim()),
+                                    Text(newses[index].contentSnippet.trim()),
                                     SizedBox(height: 20),
                                   ],
                                 ),
@@ -195,7 +203,7 @@ class _NewsViewState extends State<NewsView>
         child: Container(
           height: 50,
           child: TextFormField(
-            //controller: emailTextController,
+            controller: searchTextController,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (value) {
               /*if (value == null || value.isEmpty) {
@@ -230,7 +238,11 @@ class _NewsViewState extends State<NewsView>
                 ),
               ),
             ),
-            onChanged: (text) {},
+            onChanged: (text) {
+              BlocProvider.of<NewsBloc>(context).add(
+                NewsBlocEventFetch(isFirst: false, searchText: text),
+              );
+            },
           ),
         ),
       );
