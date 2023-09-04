@@ -12,6 +12,8 @@ class AuthenticationBlocStateUnauthenticated extends AuthenticationBlocState {}
 
 class AuthenticationBlocStateLoadingAuth extends AuthenticationBlocState {}
 
+class AuthenticationBlocStateLoadingSignup extends AuthenticationBlocState {}
+
 class AuthenticationBlocStateLogout extends AuthenticationBlocState {}
 
 class AuthenticationBlocStateSuccessAuth extends AuthenticationBlocState {
@@ -19,7 +21,17 @@ class AuthenticationBlocStateSuccessAuth extends AuthenticationBlocState {
   AuthenticationBlocStateSuccessAuth(this.userSession);
 }
 
+class AuthenticationBlocStateSuccessSignup extends AuthenticationBlocState {
+  final UserSession userSession;
+  AuthenticationBlocStateSuccessSignup(this.userSession);
+}
+
 class AuthenticationBlocStateErrorAuth extends AuthenticationBlocState {
   String errorMessage;
   AuthenticationBlocStateErrorAuth(this.errorMessage);
+}
+
+class AuthenticationBlocStateErrorSignup extends AuthenticationBlocState {
+  String errorMessage;
+  AuthenticationBlocStateErrorSignup(this.errorMessage);
 }

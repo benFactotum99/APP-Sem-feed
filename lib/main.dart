@@ -21,6 +21,7 @@ import 'package:sem_feed/presentation/bloc/resource/resource_bloc.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc.dart';
 import 'package:sem_feed/presentation/view/account/login_view.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:sem_feed/presentation/view/account/registration_view.dart';
 import 'package:sem_feed/presentation/view/home/home_view.dart';
 import 'package:sem_feed/presentation/view/news/news_add_resource_view.dart';
 import 'package:sem_feed/presentation/view/news/news_detail_view.dart';
@@ -154,6 +155,7 @@ class MyApp extends StatelessWidget {
             TopicEditView.route: (context) => TopicEditView(
                   topicEditArguments: settings.arguments as TopicEditArguments,
                 ),
+            RegistrationView.route: (context) => RegistrationView(),
             NewsAddResourceView.route: (context) => NewsAddResourceView(),
           };
           return MaterialPageRoute(builder: routes[settings.name]!);

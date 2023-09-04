@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sem_feed/presentation/bloc/authentication/authentication_bloc.dart';
 import 'package:sem_feed/presentation/bloc/authentication/authentication_bloc_event.dart';
 import 'package:sem_feed/presentation/bloc/authentication/authentication_bloc_state.dart';
+import 'package:sem_feed/presentation/view/account/registration_view.dart';
 import 'package:sem_feed/presentation/view/components/custom_button.dart';
 import 'package:sem_feed/presentation/view/components/show_my_dialog.dart';
 import 'package:sem_feed/presentation/view/home/home_view.dart';
@@ -110,90 +111,6 @@ class _LoginViewState extends State<LoginView> {
             color: Colors.grey,
             fontSize: 10,
           ),
-        ),
-      );
-
-  txtNameSection() => Container(
-        width: 310,
-        child: TextFormField(
-          //controller: emailTextController,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Il nome è obbligatoria';
-            }
-            return null;
-          },
-          cursorColor: Colors.blue,
-          decoration: const InputDecoration(
-            labelText: "Name",
-            labelStyle: TextStyle(fontSize: 18, color: Colors.grey),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 2, color: Colors.blue),
-              borderRadius: BorderRadius.all(Radius.circular(12.0)),
-            ),
-            //prefixIcon: Icon(Icons.account_circle, size: 30),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 1.5, color: Colors.grey),
-                borderRadius: BorderRadius.all(Radius.circular(12.0))),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(12.0)),
-              borderSide: BorderSide(
-                width: 2,
-                color: Colors.red,
-              ),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(12.0)),
-              borderSide: BorderSide(
-                width: 2,
-                color: Colors.blue,
-              ),
-            ),
-          ),
-          onChanged: (text) {},
-        ),
-      );
-
-  txtSurnameSection() => Container(
-        width: 310,
-        child: TextFormField(
-          //controller: emailTextController,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Il cognome è obbligatorio';
-            }
-            return null;
-          },
-          cursorColor: Colors.blue,
-          decoration: const InputDecoration(
-            labelText: "Surname",
-            labelStyle: TextStyle(fontSize: 18, color: Colors.grey),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 2, color: Colors.blue),
-              borderRadius: BorderRadius.all(Radius.circular(12.0)),
-            ),
-            //prefixIcon: Icon(Icons.account_circle, size: 30),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 1.5, color: Colors.grey),
-                borderRadius: BorderRadius.all(Radius.circular(12.0))),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(12.0)),
-              borderSide: BorderSide(
-                width: 2,
-                color: Colors.red,
-              ),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(12.0)),
-              borderSide: BorderSide(
-                width: 2,
-                color: Colors.blue,
-              ),
-            ),
-          ),
-          onChanged: (text) {},
         ),
       );
 
@@ -367,21 +284,14 @@ class _LoginViewState extends State<LoginView> {
         },
       );
 
-  Widget buttonSignupSection() => CustomButton(
-        text: 'Sign up',
-        colorButton: Colors.blue,
-        colorText: Colors.white,
-        heightButton: 50,
-        widthButton: 310,
-        isLoading: false,
-        onPressed: () {
-          if (formKey.currentState!.validate()) {}
-        },
-      );
-
   gotoSignUpSection() => InkWell(
         child: Text("Don't have an account? Sign up"),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            RegistrationView.route,
+          );
+        },
       );
 
   gotoLoginSection() => InkWell(

@@ -4,6 +4,7 @@ import 'package:sem_feed/data/helpers/user_session_helper.dart';
 import 'package:sem_feed/data/models/auth_user_request.dart';
 import 'package:sem_feed/data/models/token_payload.dart';
 import 'package:sem_feed/data/models/user.dart';
+import 'package:sem_feed/data/models/user_req.dart';
 import 'package:sem_feed/data/models/user_session.dart';
 import 'package:http/http.dart' as http;
 import 'package:sem_feed/data/repository/api/master_api_repository.dart';
@@ -68,5 +69,21 @@ class UserRepository extends MasterApiRepository {
     );
     var resp = await response.stream.bytesToString();
     return User.fromJson(jsonDecode(resp));
+  }
+
+  Future<UserSession> register(UserReq userReq) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse('$baseUrl/Auth/register'));
+    request.body = json.encode(userReq.toJson());
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var resp = await response.stream.bytesToString();
+      return UserSession.fromJson(jsonDecode(resp));
+    } else {
+      throw new Exception(response.reasonPhrase);
+    }
   }
 }

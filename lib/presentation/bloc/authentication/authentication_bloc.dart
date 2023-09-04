@@ -54,5 +54,33 @@ class AuthenticationBloc
         emit(AuthenticationBlocStateErrorAuth(errorMessage));
       }
     });
+
+    on<AuthenticationBlocEventSignup>((event, emit) async {
+      try {
+        emit(AuthenticationBlocStateLoadingSignup());
+        var userResponse = await userService.register(event.userReq);
+        emit(AuthenticationBlocStateSuccessSignup(userResponse));
+      } catch (error) {
+        String errorMessage;
+        switch (error) {
+          case "user-not-found":
+            errorMessage = "Non esiste un utente con questa email.";
+            break;
+          case "wrong-password":
+            errorMessage = "Password errata.";
+            break;
+          case "generic-error":
+            errorMessage = "Errore generico.";
+            break;
+          case "internal-server-error":
+            errorMessage =
+                "Errore sul server si prega di contattare gli amministratori del sistema.";
+            break;
+          default:
+            errorMessage = "Errore non definito.";
+        }
+        emit(AuthenticationBlocStateErrorSignup(errorMessage));
+      }
+    });
   }
 }
