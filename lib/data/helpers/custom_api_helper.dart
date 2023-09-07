@@ -21,18 +21,6 @@ class CustomApiHelper {
     }
   }
 
-  static Future<bool> isTokenValid(String baseUrl, String refreshToken) async {
-    http.StreamedResponse response =
-        await apiCallTokenRefresh(baseUrl, refreshToken);
-    if (response.statusCode == 200) {
-      return true;
-    } else if (response.statusCode == 403) {
-      return false;
-    } else {
-      throw Exception("Errore ${response.statusCode}");
-    }
-  }
-
   static Future<http.StreamedResponse> apiCallTokenRefresh(
       String baseUrl, String refreshToken) async {
     var headers = {'Content-Type': 'application/json'};

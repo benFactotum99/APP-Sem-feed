@@ -20,11 +20,11 @@ class CustomInitAppHelper {
     var currentUser = await userSessionHelper.currentUser;
     if (currentUser == null) return false;
     try {
-      var val = CustomApiHelper.isTokenValid(baseUrl, currentUser.refreshToken);
-      if (val == false) {
-        userSessionHelper.deleteUserSession();
-      }
-      return val;
+      var accessToken = await CustomApiHelper.getNewAccessToken(
+          baseUrl, currentUser.refreshToken);
+      currentUser.accessToken = accessToken;
+      userSessionHelper.saveUserSession(currentUser);
+      return true;
     } catch (e) {
       userSessionHelper.deleteUserSession();
       return false;
