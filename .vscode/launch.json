@@ -14,6 +14,16 @@
               ]
         },
         {
+            "name": "sem_feed Ios (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "-d",
+                "0A5320AE-6403-4EF9-8C10-06B677B00FCD"
+              ]
+        },
+        {
             "name": "sem_feed Android",
             "request": "launch",
             "type": "dart",
