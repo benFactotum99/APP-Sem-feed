@@ -1,16 +1,18 @@
 # sem_feed
 
-A new Flutter project.
+Readme in costruzione.
 
-## Getting Started
+Per utilizzare l'app occorre scaricare anche i due web service:
 
-This project is a starting point for a Flutter application.
+per la diretta comunicazione tramite api:
 
-A few resources to get you started if this is your first Flutter project:
+'''
+https://github.com/benFactotum99/WEB-SERVICE-Sem-feed.git
+'''
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+per l'aggiornamento periodico delle news:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+'''
+https://github.com/benFactotum99/WEB-SERVICE-Sem-Feed-Daemon.git
+'''
+
