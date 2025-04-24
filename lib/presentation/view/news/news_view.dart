@@ -244,21 +244,4 @@ class _NewsViewState extends State<NewsView>
           ),
         ),
       );
-
-  Widget buttonLoginSection() => SizedBox(
-        height: 50,
-        width: 70, //MediaQuery.of(context).size.width,
-        //width: MediaQuery.of(context).size.width,
-        child: MaterialButton(
-          onPressed: () {},
-          color: Colors.blue,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Icon(
-            Icons.search,
-            size: 30,
-          ),
-          textColor: Colors.white,
-        ),
-      );
 }

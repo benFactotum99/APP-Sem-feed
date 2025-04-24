@@ -24,7 +24,6 @@ class _HomeViewState extends State<HomeView> {
   final _pageController = PageController(initialPage: 0);
   final _controller = NotchBottomBarController(index: 0);
   BottomBarMenuHelper bottomBarMenuHelper = BottomBarMenuHelper.NEWS;
-  int maxCount = 3;
 
   @override
   void dispose() {
@@ -50,70 +49,68 @@ class _HomeViewState extends State<HomeView> {
             bottomBarPages.length, (index) => bottomBarPages[index]),
       ),
       extendBody: true,
-      bottomNavigationBar: (bottomBarPages.length <= maxCount)
-          ? AnimatedNotchBottomBar(
-              notchBottomBarController: _controller,
-              color: Colors.white,
-              showLabel: false,
-              notchColor: Colors.white,
-              removeMargins: false,
-              bottomBarWidth: 500,
-              durationInMilliSeconds: 300,
-              bottomBarItems: [
-                const BottomBarItem(
-                  inActiveItem: Icon(
-                    HeroIcons.newspaper,
-                    color: Colors.blueGrey,
-                  ),
-                  activeItem: Icon(
-                    HeroIcons.newspaper,
-                    color: Colors.blueAccent,
-                  ),
-                  itemLabel: 'News',
-                ),
+      bottomNavigationBar: AnimatedNotchBottomBar(
+        notchBottomBarController: _controller,
+        color: Colors.white,
+        showLabel: false,
+        notchColor: Colors.white,
+        removeMargins: false,
+        bottomBarWidth: 500,
+        durationInMilliSeconds: 300,
+        bottomBarItems: [
+          const BottomBarItem(
+            inActiveItem: Icon(
+              HeroIcons.newspaper,
+              color: Colors.blueGrey,
+            ),
+            activeItem: Icon(
+              HeroIcons.newspaper,
+              color: Colors.blueAccent,
+            ),
+            itemLabel: 'News',
+          ),
 
-                ///svg example
-                const BottomBarItem(
-                  inActiveItem: Icon(
-                    Icons.category,
-                    color: Colors.blueGrey,
-                  ),
-                  activeItem: Icon(
-                    Icons.category,
-                    color: Colors.blueAccent,
-                  ),
-                  itemLabel: 'Topics',
-                ),
-                const BottomBarItem(
-                  inActiveItem: Icon(
-                    HeroIcons.user,
-                    color: Colors.blueGrey,
-                  ),
-                  activeItem: Icon(
-                    HeroIcons.user,
-                    color: Colors.blueAccent,
-                  ),
-                  itemLabel: 'User',
-                ),
-              ],
-              onTap: (index) {
-                setState(() {
-                  switch (index) {
-                    case 0:
-                      bottomBarMenuHelper = BottomBarMenuHelper.NEWS;
-                      break;
-                    case 1:
-                      bottomBarMenuHelper = BottomBarMenuHelper.TOPICS;
-                      break;
-                    case 2:
-                      bottomBarMenuHelper = BottomBarMenuHelper.PROFILE;
-                      break;
-                  }
-                });
-                _pageController.jumpToPage(index);
-              },
-            )
-          : null,
+          ///svg example
+          const BottomBarItem(
+            inActiveItem: Icon(
+              Icons.category,
+              color: Colors.blueGrey,
+            ),
+            activeItem: Icon(
+              Icons.category,
+              color: Colors.blueAccent,
+            ),
+            itemLabel: 'Topics',
+          ),
+          const BottomBarItem(
+            inActiveItem: Icon(
+              HeroIcons.user,
+              color: Colors.blueGrey,
+            ),
+            activeItem: Icon(
+              HeroIcons.user,
+              color: Colors.blueAccent,
+            ),
+            itemLabel: 'User',
+          ),
+        ],
+        onTap: (index) {
+          setState(() {
+            switch (index) {
+              case 0:
+                bottomBarMenuHelper = BottomBarMenuHelper.NEWS;
+                break;
+              case 1:
+                bottomBarMenuHelper = BottomBarMenuHelper.TOPICS;
+                break;
+              case 2:
+                bottomBarMenuHelper = BottomBarMenuHelper.PROFILE;
+                break;
+            }
+          });
+          _pageController.jumpToPage(index);
+        },
+      ),
     );
   }
 
