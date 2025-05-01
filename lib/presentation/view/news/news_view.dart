@@ -109,7 +109,7 @@ class _NewsViewState extends State<NewsView>
     return BlocBuilder<NewsBloc, NewsBlocState>(
       builder: (context, state) {
         if (state is NewsBlocStateLoaded) {
-          var newses = state.newses;
+          var news = state.news;
           return Expanded(
             child: Container(
               //height: 400,
@@ -129,7 +129,7 @@ class _NewsViewState extends State<NewsView>
                     padding: EdgeInsets.only(
                         bottom: kBottomNavigationBarHeight + 40),
                     shrinkWrap: true,
-                    itemCount: newses.length,
+                    itemCount: news.length,
                     separatorBuilder: (BuildContext context, int index) =>
                         const SizedBox(
                       height: 20,
@@ -140,7 +140,7 @@ class _NewsViewState extends State<NewsView>
                           Navigator.pushNamed(
                             context,
                             NewsDetailView.route,
-                            arguments: NewsDetailArguments(newses[index]),
+                            arguments: NewsDetailArguments(news[index]),
                           );
                         },
                         child: Card(
@@ -159,20 +159,20 @@ class _NewsViewState extends State<NewsView>
                                   children: [
                                     SizedBox(height: 20),
                                     Text(
-                                      newses[index].title.trim(),
+                                      news[index].title.trim(),
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     SizedBox(height: 5),
                                     Text(
-                                      newses[index].pubDate.trim(),
+                                      news[index].pubDate.trim(),
                                       style: TextStyle(
                                         fontSize: 15,
                                       ),
                                     ),
                                     SizedBox(height: 10),
-                                    Text(newses[index].contentSnippet.trim()),
+                                    Text(news[index].contentSnippet.trim()),
                                     SizedBox(height: 20),
                                   ],
                                 ),

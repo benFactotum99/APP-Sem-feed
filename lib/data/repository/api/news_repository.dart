@@ -13,7 +13,7 @@ class NewsRepository extends MasterApiRepository {
   NewsRepository(this.baseUrl, this.userSessionHelper)
       : super(baseUrl, userSessionHelper);
 
-  Future<List<News>> getNewses() async {
+  Future<List<News>> getNews() async {
     var currentUser = await userSessionHelper.currentUser;
     if (currentUser == null) throw Exception("Utente non trovato");
 

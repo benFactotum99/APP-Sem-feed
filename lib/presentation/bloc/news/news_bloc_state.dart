@@ -7,8 +7,8 @@ class NewsBlocStateInit extends NewsBlocState {}
 class NewsBlocStateLoading extends NewsBlocState {}
 
 class NewsBlocStateLoaded extends NewsBlocState {
-  final List<News> newses;
-  NewsBlocStateLoaded(this.newses);
+  final List<News> news;
+  NewsBlocStateLoaded(this.news);
 }
 
 class NewsBlocStateError extends NewsBlocState {

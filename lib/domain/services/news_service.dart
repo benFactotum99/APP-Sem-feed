@@ -13,7 +13,7 @@ class NewsService {
     this.newsRepository,
   );
 
-  Future<List<News>> getNewses() async {
-    return await this.newsRepository.getNewses();
+  Future<List<News>> getNews() async {
+    return await this.newsRepository.getNews();
   }
 }

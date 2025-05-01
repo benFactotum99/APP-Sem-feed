@@ -12,18 +12,18 @@ class NewsBloc extends Bloc<NewsBlocEvent, NewsBlocState> {
       (event, emit) async {
         try {
           if (event.isFirst == true) emit(NewsBlocStateLoading());
-          var newses = await newsService.getNewses();
+          var news = await newsService.getNews();
           if (event.searchText == "") {
-            emit(NewsBlocStateLoaded(newses));
+            emit(NewsBlocStateLoaded(news));
           } else {
-            final newsesFiltered = newses.where((news) {
+            final newsFiltered = news.where((news) {
               final den =
                   ("${news.title}, ${news.contentSnippet}").toLowerCase();
               final input = event.searchText.toLowerCase();
 
               return den.contains(input);
             }).toList();
-            emit(NewsBlocStateLoaded(newsesFiltered));
+            emit(NewsBlocStateLoaded(newsFiltered));
           }
         } on CustomTokenException catch (error) {
           print(error.cause);
