@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sem_feed/data/models/user_session.dart';
-import 'package:sem_feed/domain/helpers/strings_helper.dart';
+import 'package:sem_feed/application/helpers/strings_helper.dart';
 
 class UserSessionHelper {
   final FlutterSecureStorage flutterSecureStorage;

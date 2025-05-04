@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sem_feed/data/exceptions/custom_feed_rss_exception.dart';
 import 'package:sem_feed/data/exceptions/custom_token_exception.dart';
-import 'package:sem_feed/domain/services/resource_service.dart';
+import 'package:sem_feed/application/services/resource_service.dart';
 import 'package:sem_feed/presentation/bloc/resource/resource_bloc_event.dart';
 import 'package:sem_feed/presentation/bloc/resource/resource_bloc_state.dart';
 

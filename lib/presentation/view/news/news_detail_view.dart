@@ -5,9 +5,9 @@ import 'package:sem_feed/data/models/news.dart';
 import 'package:sem_feed/data/models/topic.dart';
 import 'package:sem_feed/data/models/topic_wrap.dart';
 import 'package:sem_feed/data/models/user_session.dart';
-import 'package:sem_feed/domain/arguments/news_detail_arguments.dart';
-import 'package:sem_feed/domain/helpers/generic_helper.dart';
-import 'package:sem_feed/domain/helpers/strings_helper.dart';
+import 'package:sem_feed/application/arguments/news_detail_arguments.dart';
+import 'package:sem_feed/application/helpers/generic_helper.dart';
+import 'package:sem_feed/application/helpers/strings_helper.dart';
 import 'package:sem_feed/presentation/bloc/user/user_bloc.dart';
 
 class NewsDetailView extends StatefulWidget {

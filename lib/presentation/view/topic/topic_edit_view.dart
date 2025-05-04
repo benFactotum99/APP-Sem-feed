@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sem_feed/data/models/topic.dart';
 import 'package:sem_feed/data/models/topic_req.dart';
 import 'package:sem_feed/data/models/user_session.dart';
-import 'package:sem_feed/domain/arguments/topic_edit_arguments.dart';
+import 'package:sem_feed/application/arguments/topic_edit_arguments.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc_event.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc_state.dart';

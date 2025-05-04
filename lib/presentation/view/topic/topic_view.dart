@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:sem_feed/domain/arguments/topic_edit_arguments.dart';
+import 'package:sem_feed/application/arguments/topic_edit_arguments.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc_event.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc_state.dart';

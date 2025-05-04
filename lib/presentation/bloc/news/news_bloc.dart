@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sem_feed/data/exceptions/custom_token_exception.dart';
 import 'package:sem_feed/data/repository/api/news_repository.dart';
-import 'package:sem_feed/domain/services/news_service.dart';
+import 'package:sem_feed/application/services/news_service.dart';
 import 'package:sem_feed/presentation/bloc/news/news_bloc_event.dart';
 import 'package:sem_feed/presentation/bloc/news/news_bloc_state.dart';
 

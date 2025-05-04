@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sem_feed/data/exceptions/custom_token_exception.dart';
-import 'package:sem_feed/domain/services/topic_service.dart';
+import 'package:sem_feed/application/services/topic_service.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc_event.dart';
 import 'package:sem_feed/presentation/bloc/topic/topic_bloc_state.dart';
 

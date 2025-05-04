@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sem_feed/data/models/auth_user_request.dart';
-import 'package:sem_feed/domain/helpers/strings_helper.dart';
-import 'package:sem_feed/domain/services/user_service.dart';
+import 'package:sem_feed/application/helpers/strings_helper.dart';
+import 'package:sem_feed/application/services/user_service.dart';
 import 'package:sem_feed/presentation/bloc/authentication/authentication_bloc_event.dart';
 import 'package:sem_feed/presentation/bloc/authentication/authentication_bloc_state.dart';
 

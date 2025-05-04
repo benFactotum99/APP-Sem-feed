@@ -2,7 +2,7 @@ import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_not
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:sem_feed/domain/helpers/bottom_bar_menu_helper.dart';
+import 'package:sem_feed/application/helpers/bottom_bar_menu_helper.dart';
 import 'package:sem_feed/presentation/bloc/authentication/authentication_bloc.dart';
 import 'package:sem_feed/presentation/bloc/authentication/authentication_bloc_event.dart';
 import 'package:sem_feed/presentation/view/account/login_view.dart';
